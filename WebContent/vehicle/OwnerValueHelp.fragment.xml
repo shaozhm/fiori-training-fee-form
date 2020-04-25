@@ -1,0 +1,33 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+	<SelectDialog
+			title="{i18n>ENTITY_OWNER}"
+			search="handleRefOwnerSearch"
+			confirm="handleRefOwnerValueHelpClose"
+			cancel="handleRefOwnerValueHelpClose"
+			showClearButton="true"
+			items="{
+				path:'DrivingSafety>/Owner',
+				filters : [
+							{
+								 path:'DELETE_FLAG',
+								 operator:'EQ',
+								 value1:'0'
+							}
+			            ]
+			}"
+		>
+		<items>
+			<StandardListItem selected="false"
+					title="{DrivingSafety>FULL_NAME}"
+					description="{DrivingSafety>ID}"
+					iconDensityAware="false"
+					iconInset="false"
+					type="Active"
+					press="han"
+			/>
+		</items>
+
+	</SelectDialog>
+</core:FragmentDefinition>

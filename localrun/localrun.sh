@@ -1,0 +1,3 @@
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+export XS_APP_LOG_LEVEL=DEBUG
+npm start

@@ -1,0 +1,72 @@
+<View
+		xmlns="sap.m"
+		xmlns:l="sap.ui.layout"
+		xmlns:u="sap.ui.unified"
+		xmlns:mvc="sap.ui.core.mvc"
+		controllerName="com.sap.sdrive.ui.masterdata.batch.BatchDetail">
+	<Page
+			title="{/categoryInfo/name} {i18n>BATCH_TITLE_DETAIL}">
+		<content>
+			<Table
+					class="sapUiSizeCompact"
+					id="batchDisplayTable"
+					growing="true"
+					growingThreshold="30"
+					growingScrollToLoad="false"
+					items="{path: '/ProductCollection'}"
+					updateFinished="examine_growing_elements">
+				<headerToolbar>
+					<Toolbar>
+						<content>
+							<Title id="batchTitle" text="{/categoryInfo/name} {i18n>BATCH_TITLE_DETAIL} ({= ${/tableData}.length })" tooltip="{/categoryInfo/name} {i18n>BATCH_TITLE_DETAIL} ({= ${/tableData}.length })" level="H2"/>
+							<ToolbarSpacer />
+							<Link 
+								id="locationLink" 
+								text="{i18n>LINK_LOCATION_URL}" 
+								target="_blank" 
+								href="https://lbs.amap.com/api/javascript-api/example/map/click-to-get-lnglat"
+							/>
+							<ToolbarSpacer />
+							<Button
+									text="{i18n>ADD_NEW_ITEM}"
+									press="addNewItemPress"/>
+							<Button
+								text="{i18n>BATCH_DOWNLOAD_EXCEL}"
+								press="handleDownloadPress"/>
+							<u:FileUploader
+								id="fileUploader"
+								name="uploadFile"
+								uploadUrl="/masterdata/uploadExcel.xsjs"
+								tooltip="Upload Excel"
+								sendXHR="true"
+								buttonOnly="true"
+								buttonText="{i18n>BATCH_UPLOAD_EXCEL}"
+								change="handleUploadChange"
+								uploadComplete="handleUploadComplete"/>
+						</content>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+
+				<Text visible="{= ${/process} }" text="{/processText}" />
+				<Button visible="{= ${/process} &amp;&amp; !${/forceStop} }" text="{i18n>STOP}" type="Reject" press="forceStop" />
+				<Button visible="{= ${/process} &amp;&amp; ${/forceStop} }" text="{i18n>STOPPING}" type="Reject" enabled="false" />
+
+				<Button visible="{= !${/process} }" text="{i18n>SAVE}" type="Accept" press="save" />
+				<Button visible="{= !${/process} }" text="{i18n>CLEAR}" type="Reject" press="clearTableData" />
+			</Toolbar>
+		</footer>
+	</Page>
+</View>

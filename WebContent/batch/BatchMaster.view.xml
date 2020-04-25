@@ -1,0 +1,20 @@
+<View
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	controllerName="com.sap.sdrive.ui.masterdata.batch.BatchMaster">
+	<Page
+		title="{i18n>BATCH_TITLE}"
+		showNavButton="false"
+		navButtonPress="onNavBack">
+		<content>
+			<List
+					items="{settings>/batchCategory}">
+				<items>
+					<StandardListItem title="{settings>name}"
+						type="Navigation"
+						press="onCategoryPress"/>
+				</items>
+			</List>
+		</content>
+	</Page>
+</View>

@@ -1,0 +1,358 @@
+<mvc:View
+		controllerName="com.sap.sdrive.ui.masterdata.vehicle.VehicleDetail"
+		xmlns="sap.uxap"
+		xmlns:f="sap.ui.layout.form"
+		xmlns:m="sap.m"
+		xmlns:l="sap.ui.layout"
+		xmlns:core="sap.ui.core"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<m:Page showHeader="{detailView>/showHeader}" showNavButton="{detailView>/showNavButton}" navButtonPress=".navBack">
+		<m:landmarkInfo>
+			<m:PageAccessibleLandmarkInfo rootRole="Region" rootLabel="{i18n>SystemSettings_rootLabel}" contentRole="Main" contentLabel="{i18n>SystemSettings_contentLabel}" />
+		</m:landmarkInfo>
+		<ObjectPageLayout id="objectPageLayout">
+			<headerTitle>
+				<ObjectPageHeader objectTitle="{i18n>ENTITY_VEHICLE}:{detailView>/vehicle/PLATE_NUMBER}" objectSubtitle="">
+					<actions>
+
+						<ObjectPageHeaderActionButton icon="sap-icon://edit" id="edit" text="{i18n>EDIT}" hideText="false" press=".onEditPressed" type="Emphasized" />
+
+						<ObjectPageHeaderActionButton icon="sap-icon://save" id="cancel" text="{i18n>SAVE}" press=".onSavePressed" hideText="false" type="Emphasized" />
+
+						<ObjectPageHeaderActionButton icon="sap-icon://delete" id="delete" text="{i18n>DELETE}" press="delete" hideText="false" type="Emphasized" />
+					</actions>
+				</ObjectPageHeader>
+			</headerTitle>
+			<headerContent>
+				<!--m:MessageStrip
+						text="{
+						parts: [
+							'i18n>systemSettingsLastLoginTitle',
+							'view>/currentUser',
+							'view>/lastLogin'
+						],
+						formatter: '.formatter.formatMessage'
+					}"
+						type="Information"
+						showIcon="true">
+				</m:MessageStrip-->
+			</headerContent>
+			<sections>
+				<ObjectPageSection>
+					<subSections>
+						<ObjectPageSubSection id="vehicle" title="{i18n>BASE_INFO}">
+							<blocks>
+								<ObjectPageLazyLoader id="shopOwnerLazyLoader">
+									<f:SimpleForm columnsL="2" columnsM="2" layout="ResponsiveGridLayout" busy="{detailView>/busy}">
+										<f:content>
+											<core:Title />
+
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_VIN}" labelFor="ENTITY_VEHICLE_VIN" />
+											<m:Input id="ENTITY_VEHICLE_VIN" type="Text" width="100%" editable="{detailView>/editable}" value="{detailView>/vehicle/VIN}" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_ENGINE}" labelFor="ENTITY_VEHICLE_ENGINE" />
+											<m:Input id="ENTITY_VEHICLE_ENGINE" type="Text" width="100%" editable="{detailView>/editable}" value="{detailView>/vehicle/ENGINE_NO}" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_PLATE_NUMBER}" labelFor="ENTITY_VEHICLE_PLATE_NUMBER" />
+											<m:Input id="ENTITY_VEHICLE_PLATE_NUMBER" type="Text" width="100%" editable="{detailView>/editable}" value="{detailView>/vehicle/PLATE_NUMBER}" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_MAKER}" labelFor="ENTITY_VEHICLE_MAKER" />
+											<m:Input id="ENTITY_VEHICLE_MAKER" type="Text" width="100%" editable="{detailView>/editable}" value="{detailView>/vehicle/MAKER}" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_MODEL}" labelFor="ENTITY_VEHICLE_MODEL" />
+											<m:Input id="ENTITY_VEHICLE_MODEL" type="Text" width="100%" editable="{detailView>/editable}" value="{detailView>/vehicle/MODEL}" />
+
+											<core:Title />
+
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_DOC_NUMBER}" labelFor="ENTITY_VEHICLE_DOC_NUMBER" />
+											<m:Input id="ENTITY_VEHICLE_DOC_NUMBER" type="Text" width="100%" editable="{detailView>/editable}" value="{detailView>/vehicle/DOC_NUMBER}" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_CARD_ID}" labelFor="ENTITY_VEHICLE_CARD_ID" />
+											<m:Input id="ENTITY_VEHICLE_CARD_ID" type="Text" width="100%" editable="{detailView>/editable}" value="{detailView>/vehicle/CARD_ID}" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_LIC_VALID_FROM}" labelFor="ENTITY_VEHICLE_LIC_VALID_FROM" />
+											<m:DatePicker id="ENTITY_VEHICLE_LIC_VALID_FROM" valueFormat="yyyy-MM-dd" displayFormat="long" value="{path:'detailView>/vehicle/LICENSE_VALID_FROM',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, style: 'medium', strictParsing: true}}" change="handleChange" editable="{detailView>/editable}" class="sapUiSmallMarginBottom" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_LIC_VALID_TO}" labelFor="ENTITY_VEHICLE_LIC_VALID_TO" />
+
+											<m:DatePicker id="ENTITY_VEHICLE_LIC_VALID_TO" valueFormat="yyyy-MM-dd" displayFormat="long" value="{path:'detailView>/vehicle/LICENSE_VALID_TO',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, style: 'medium', strictParsing: true}}" change="handleChange" editable="{detailView>/editable}" class="sapUiSmallMarginBottom" />
+
+											<core:Title />
+
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_BIZ_ID}" labelFor="ENTITY_VEHICLE_BIZ_ID" />
+											<m:Input id="ENTITY_VEHICLE_BIZ_ID" type="Text" width="100%" editable="{detailView>/editable}" value="{detailView>/vehicle/OP_CERT_NUMBER}" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_BIZ_VALID_FROM}" labelFor="ENTITY_VEHICLE_BIZ_VALID_FROM" />
+
+											<m:DatePicker id="ENTITY_VEHICLE_BIZ_VALID_FROM" valueFormat="yyyy-MM-dd" displayFormat="long" value="{path:'detailView>/vehicle/OP_CERT_VALID_FROM',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, style: 'medium', strictParsing: true}}" change="handleChange" editable="{detailView>/editable}" class="sapUiSmallMarginBottom" />
+
+											<m:Label text="{i18n>ENTITY_VEHICLE_BIZ_VALID_TO}" labelFor="ENTITY_VEHICLE_BIZ_VALID_TO" />
+
+											<m:DatePicker id="ENTITY_VEHICLE_BIZ_VALID_TO" valueFormat="yyyy-MM-dd" displayFormat="long" value="{path:'detailView>/vehicle/OP_CERT_VALID_TO',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, style: 'medium', strictParsing: true}}" change="handleChange" editable="{detailView>/editable}" class="sapUiSmallMarginBottom" />
+
+
+										</f:content>
+									</f:SimpleForm>
+								</ObjectPageLazyLoader>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection>
+					<subSections>
+						<ObjectPageSubSection id="vehicleOwner" title="{i18n>ENTITY_OWNER}">
+							<blocks>
+								<ObjectPageLazyLoader id="shopConfigurationLazyLoader">
+
+									<f:SimpleForm columnsL="2" columnsM="2" layout="ResponsiveGridLayout">
+
+										<f:content>
+
+											<core:Title />
+
+											<m:Label text="{i18n>ENTITY_OWNER_CITIZEN_ID}" labelFor="ENTITY_OWNER_CITIZEN_ID" />
+
+											<m:Input id="ENTITY_VEHICLE_REFOWNER_UID" type="Text" value="{detailView>/vehicle/Owner/ID}" placeholder="Enter OWNER ..." showValueHelp="true" valueHelpOnly="false" enabled="true" valueHelpRequest="handleRefOwnerValueHelp" class="sapUiSmallMarginBottom" width="100%" editable="{detailView>/editable}" />
+
+
+											<m:Label text="{i18n>ENTITY_OWNER_FIRST_NAME}" labelFor="ENTITY_OWNER_FIRST_NAME" />
+											<m:Input id="ENTITY_OWNER_FIRST_NAME" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Owner/FIRST_NAME}" />
+											<m:Label text="{i18n>ENTITY_OWNER_LAST_NAME}" labelFor="ENTITY_OWNER_LAST_NAME" />
+											<m:Input id="ENTITY_OWNER_LAST_NAME" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Owner/LAST_NAME}" />
+
+											<m:Label text="{i18n>ENTITY_OWNER_GENDER}" labelFor="ENTITY_OWNER_GENDER" />
+											<m:Input id="ENTITY_OWNER_GENDER" type="Text" width="100%" editable="false" value="{=${detailView>/vehicle/Owner/GENDER}==='F'?${i18n>FEMALE}:${i18n>MALE}}" />
+
+											<m:Label text="{i18n>ENTITY_OWNER_TELEPHONE}" labelFor="ENTITY_OWNER_TELEPHONE" />
+											<m:Input id="ENTITY_OWNER_TELEPHONE" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Owner/TEL_NO}" />
+
+											<m:Label text="{i18n>ENTITY_OWNER_BIRTH_DATE}" labelFor="ENTITY_OWNER_BIRTH_DATE" />
+
+											<m:DatePicker id="ENTITY_OWNER_BIRTH_DATE" valueFormat="yyyy-MM-dd" displayFormat="long" value="{path:'detailView>/vehicle/Owner/BIRTH_DATE',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, style: 'medium', strictParsing: true}}" change="handleChange" editable="false" class="sapUiSmallMarginBottom" />
+
+											<core:Title />
+
+											<m:Label text="{i18n>ENTITY_OWNER_PLATFORM_USER}" labelFor="ENTITY_OWNER_PLATFORM_USER" />
+											<m:Input id="ENTITY_OWNER_PLATFORM_USER" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Owner/ACCOUNT}" />
+
+											<m:Label />
+
+											<m:Link icon="sap-icon://action" press="navToOwnerPage" text="{i18n>MORE_INFO}" width="100%" textAlign="Center">
+												<m:customData>
+													<core:CustomData key="OWNER_UID" value="{detailView>/vehicle/Owner/UID}" />
+												</m:customData>
+											</m:Link>
+
+
+										</f:content>
+									</f:SimpleForm>
+								</ObjectPageLazyLoader>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection>
+					<subSections>
+						<ObjectPageSubSection id="vehicleDeviceId" title="{i18n>ENTITY_DEVICE}">
+							<blocks>
+								<ObjectPageLazyLoader id="shopConfigurationLazyLoader">
+
+									<f:SimpleForm columnsL="2" columnsM="2" layout="ResponsiveGridLayout">
+
+										<f:content>
+
+											<core:Title />
+
+											<m:Label text="{i18n>ENTITY_DEVICE_DEVICE_ID}" labelFor="ENTITY_DEVICE_DEVICE_ID" />
+
+											<m:Input id="ENTITY_VEHICLE_REFDEVICE_UID" type="Text" value="{detailView>/vehicle/Device/DEVICE_ID}" placeholder="Enter Device ..." showValueHelp="true" valueHelpOnly="false" enabled="true" valueHelpRequest="handleRefDeviceValueHelp" class="sapUiSmallMarginBottom" width="100%" editable="{detailView>/editable}" />
+
+
+											<m:Label text="{i18n>ENTITY_DEVICE_SIM_ID}" labelFor="ENTITY_DEVICE_SIM_ID" />
+											<m:Input id="ENTITY_DEVICE_SIM_ID" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Device/SIM_ID}" />
+
+											<m:Label text="{i18n>ENTITY_DEVICE_MAKER}" labelFor="ENTITY_DEVICE_MAKER" />
+											<m:Input id="MAKER" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Device/MAKER}" />
+
+											<m:Label text="{i18n>ENTITY_DEVICE_MODEL}" labelFor="ENTITY_DEVICE_MODEL" />
+											<m:Input id="MODEL" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Device/MODEL}" />
+
+											<m:Label text="{i18n>ENTITY_DEVICE_MAC_ADDRESS}" labelFor="ENTITY_DEVICE_MAC_ADDRESS" />
+											<m:Input id="MAC_ADDRESS" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Device/MAC_ADDRESS}" />
+
+											<core:Title />
+
+											<m:Label text="{i18n>ENTITY_DEVICE_PRICE}" labelFor="ENTITY_DEVICE_PRICE" />
+											<m:Input id="PRICE" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Device/PRICE}" />
+
+
+											<m:Label text="{i18n>ENTITY_DEVICE_DESCRIPTION}" labelFor="ENTITY_DEVICE_DESCRIPTION" />
+											<m:Input id="DESCRIPTION" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Device/DESCRIPTION}" />
+
+											<m:Label text="{i18n>ENTITY_DEVICE_DEVICE_TYPE}" labelFor="ENTITY_DEVICE_DEVICE_TYPE" />
+											<m:Input id="ENTITY_DEVICE_DEVICE_TYPE" type="Text" width="100%" editable="false" value="{detailView>/vehicle/Device/DEVICE_TYPE}" />
+
+											<m:Label text="{i18n>ENTITY_DEVICE_PURCHASE_DATE}" labelFor="ENTITY_DEVICE_PURCHASE_DATE" />
+
+											<m:DatePicker id="ENTITY_DEVICE_PURCHASE_DATE" valueFormat="yyyy-MM-dd" displayFormat="long" value="{path:'detailView>/vehicle/Device/PURCHASE_DATE',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, style: 'medium', strictParsing: true}}" change="handleChange" editable="false" class="sapUiSmallMarginBottom" />
+
+											<m:Label />
+
+
+											<m:Link icon="sap-icon://action" press="navToDevicePage" text="{i18n>MORE_INFO}" width="100%" textAlign="Center">
+												<m:customData>
+													<core:CustomData key="DEVICE_UID" value="{detailView>/vehicle/Device/UID}" />
+												</m:customData>
+											</m:Link>
+
+
+										</f:content>
+									</f:SimpleForm>
+								</ObjectPageLazyLoader>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection>
+					<subSections>
+						<ObjectPageSubSection id="vehicleOwnVehicleId" title="{i18n>ENTITY_OWNVEHICLE_COMPANY}">
+							<blocks>
+								<ObjectPageLazyLoader id="shopConfigurationLazyLoader">
+
+									<m:Table id="lineItemsList" class="sapUiSmallMarginTop" width="auto" items="{path:'detailView>/vehicle/OwnVehicle/results'}" updateFinished=".onListUpdateFinished" busyIndicatorDelay="{detailView>/lineItemTableDelay}">
+										<m:headerToolbar>
+											<m:Toolbar id="lineItemsToolbar">
+												<m:Title id="lineItemsHeader" text="{i18n>LIST}" />
+											</m:Toolbar>
+										</m:headerToolbar>
+										<m:columns>
+											<m:Column>
+												<m:Text text="{i18n>ENTITY_COMPANY}" />
+											</m:Column>
+											<m:Column>
+												<m:Text text="{i18n>ENTITY_DRIVER}" />
+											</m:Column>
+											<m:Column>
+												<m:Text text="{i18n>ENTITY_OWNVEHICLE_CREATE_DATE}" />
+											</m:Column>
+											<m:Column>
+												<m:Text text="{i18n>ENTITY_OWNVEHICLE_OWN_STATUS}" />
+											</m:Column>
+										</m:columns>
+										<m:items>
+											<m:ColumnListItem>
+												<m:cells>
+													<m:ObjectAttribute text="{detailView>Company/NAME}" active="true" press="navToCompanyPage" />
+													<m:ObjectAttribute text="{detailView>Driver/FIRST_NAME}{detailView>Driver/LAST_NAME}" active="true" press="navToDriverPage" />
+
+													<m:ObjectAttribute text="{path:'detailView>CREATE_DATE',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, style: 'medium', strictParsing: true}}" />
+
+													<m:ObjectAttribute text="{=${detailView>OWN_STATUS}==='1'?${i18n>ACTIVE}:${i18n>INACTIVE}}" />
+
+												</m:cells>
+											</m:ColumnListItem>
+										</m:items>
+									</m:Table>
+								</ObjectPageLazyLoader>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection>
+					<subSections>
+						<ObjectPageSubSection title="{i18n>ENTITY_VEHICLE_FEE}">
+							<blocks>
+								<ObjectPageLazyLoader>
+									<m:Table
+											id="feeTable" 
+											class="sapUiSmallMarginTop"
+											width="auto"
+											items="{ path:'DrivingSafety>Fee', sorter: { path: 'CHANGED_ON', descending: true } }"
+											busy="{path:'detailView>/vehicle/feeTableBusy'}"
+											growing="true"
+											enableBusyIndicator="true"
+											mode="Delete"
+											delete="onFeeDelete"
+											popinLayout="GridSmall">
+										<m:headerToolbar>
+											<m:OverflowToolbar>
+												<m:Title text="{i18n>ENTITY_VEHICLE_FEE}" level="H2" />
+												<m:ToolbarSpacer />
+												<m:Button text="{i18n>ENTITY_VEHICLE_FEE_BTN_ADD}" type="Transparent" press="onFeeDialogPressed" />
+												<m:Button icon="sap-icon://sort" press="onFeeSortButtonPressed">
+													<!--m:layoutData>
+														<m:OverflowToolbarLayoutData priority="Neverflow" />
+													</m:layoutData -->
+												</m:Button>
+												<!-- m:Button icon="sap-icon://filter" press="onFeeFilterButtonPressed">
+													<m:layoutData>
+														<m:OverflowToolbarLayoutData priority="Neverflow" />
+													</m:layoutData>
+												</m:Button -->
+											</m:OverflowToolbar>
+										</m:headerToolbar>
+										<m:columns>
+											<m:Column width="6em">
+												<m:Text text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_START_DATE}" />
+											</m:Column>
+											<m:Column width="6em">
+												<m:Text text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_END_DATE}" />
+											</m:Column>
+											<m:Column width="12em" hAlign="Center">
+												<m:Text text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_FEE}" />
+											</m:Column>
+											<m:Column width="10em" minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+												<m:Text text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_UPDATED_ON}" />
+											</m:Column>
+											<m:Column width="8em" minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+												<m:Text text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_UPDATED_BY}" />
+											</m:Column>
+											<m:Column width="10em" minScreenWidth="1200px" demandPopin="true" popinDisplay="Inline">
+												<m:Text text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_CREATED_ON}" />
+											</m:Column>
+											<m:Column width="8em" minScreenWidth="1200px" demandPopin="true" popinDisplay="Inline">
+												<m:Text text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_CREATED_BY}" />
+											</m:Column>
+										</m:columns>
+										<m:items>
+											<m:ColumnListItem type="Detail" data:uuid="{DrivingSafety>UID}" detailPress="onFeeEditPressed">
+												<m:cells>
+													<m:ObjectAttribute
+															text="{path:'DrivingSafety>FEE_START_DATE',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, pattern: 'yyyy-MM-dd', strictParsing: true}}"
+													/>
+													<m:ObjectAttribute
+															text="{path:'DrivingSafety>FEE_END_DATE',type:'sap.ui.model.type.Date', formatOptions: {UTC:true, pattern: 'yyyy-MM-dd', strictParsing: true}}"
+													/>
+													<m:ObjectAttribute
+															text="{ parts: [{path: 'DrivingSafety>FEE'}, {path: 'DrivingSafety>CURRENCY_CODE'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: true } }"
+													/>
+													<m:ObjectAttribute
+															text="{path:'DrivingSafety>CHANGED_ON', type:'sap.ui.model.type.DateTime', formatOptions: {UTC:true, pattern: 'yyyy-MM-dd HH:mm:ss', strictParsing: true}}"
+													/>
+													<m:ObjectAttribute
+															text="{path:'DrivingSafety>CHANGED_BY'}"
+													/>
+													<m:ObjectAttribute
+															text="{path:'DrivingSafety>CREATED_ON', type:'sap.ui.model.type.DateTime', formatOptions: {UTC:true, pattern: 'yyyy-MM-dd HH:mm:ss', strictParsing: true}}"
+													/>
+													<m:ObjectAttribute
+															text="{path:'DrivingSafety>CREATED_BY'}"
+													/>
+												</m:cells>
+											</m:ColumnListItem>
+										</m:items>
+									</m:Table>
+									
+								</ObjectPageLazyLoader>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+			</sections>
+		</ObjectPageLayout>
+	</m:Page>
+</mvc:View>

@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form"
+        xmlns:layout="sap.ui.layout" width="100%">
+    <Dialog title="{i18n>ENTITY_VEHICLE_FEE_DIALOG_TITLE_CREATE}" afterClose=".afterCloseDialog" contentWidth="30%" busy="{path:'newFeeModel>/dialogBusy'}">
+        <content>
+            <f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+				<f:content>
+                	<Label text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_LABEL_START_DATE}" required="true" labelFor="inputStartDate" />
+		        	<DatePicker id="inputStartDate" 
+							value="{
+								path:'newFeeModel>/FEE_START_DATE', 
+								type:'sap.ui.model.type.Date', 
+								formatOptions: {UTC: true, pattern: 'yyyy-MM-dd', strictParsing: true}
+							}" 
+							valueFormat="yyyy-MM-dd"
+							displayFormat="yyyy-MM-dd"
+							valueState="{path:'newFeeModel>/feeStartDateValueState'}"
+							valueStateText="{path:'newFeeModel>/feeStartDateValueStateText'}" 
+		        	    	change="handleFeeStartDateChange"
+							parseError="handleDateParseError"
+							validationError="handleValidationError"
+							validationSuccess="handleValidationSuccess">
+					</DatePicker>
+                	<Label text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_LABEL_END_DATE}" required="true" labelFor="inputEndDate" />
+		        	<DatePicker id="inputEndDate"  
+							value="{ 
+								path:'newFeeModel>/FEE_END_DATE', 
+								type:'sap.ui.model.type.Date', 
+								formatOptions: {UTC: true, pattern: 'yyyy-MM-dd', strictParsing: true} 
+							}"
+							valueFormat="yyyy-MM-dd"
+							displayFormat="yyyy-MM-dd"
+							valueState="{path:'newFeeModel>/feeEndDateValueState'}"
+							valueStateText="{path:'newFeeModel>/feeEndDateValueStateText'}" 
+							
+							parseError="handleDateParseError"
+							validationError="handleValidationError"
+							validationSuccess="handleValidationSuccess">
+					</DatePicker>
+                	<Label text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_LABEL_FEE}" required="true" labelFor="inputFee" />
+                	<Input id="inputFee" 
+							value="{ 
+								parts: [{path: 'newFeeModel>/FEE'}, {path: 'newFeeModel>/currencyCode'}], 
+								type: 'sap.ui.model.type.Currency', 
+								formatOptions: {showMeasure: false},
+								constraints: {minimum: 0.01}
+							}" 
+							placeholder="{i18n>ENTITY_VEHICLE_FEE_DIALOG_HINT_FEE}" 
+							change="handleFeeChange"
+							valueState="{path:'newFeeModel>/feeValueState'}"
+							valueStateText="{path:'newFeeModel>/feeValueStateText'}" 
+							validationError="handleValidationError"
+							validationSuccess="handleValidationSuccess">
+					</Input>
+				</f:content>
+            </f:SimpleForm>
+        </content>
+		<beginButton>
+			<Button text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_BTN_CREATE}" press="onFeeDialogCreate" type="Emphasized" tooltip="{i18n>ENTITY_VEHICLE_FEE_DIALOG_TOOLTIP_BTN_CREATE}" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_BTN_CANCEL}" press="onFeeDialogCancel" tooltip="{i18n>ENTITY_VEHICLE_FEE_DIALOG_TOOLTIP_BTN_CANCEL}"  />
+		</endButton>
+    </Dialog>
+</core:FragmentDefinition>

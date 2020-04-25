@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form"
+        xmlns:layout="sap.ui.layout" width="100%">
+    <Dialog title="{i18n>ENTITY_VEHICLE_FEE_DIALOG_TITLE_DELETE}" contentWidth="30%" class="sapUiContentPadding">
+        <content>
+            <VBox justifyContent="Center" class="sapUiSmallMarginBeginEnd">
+                <Label text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_LABEL_START_DATE}:" class="sapUiSmallMarginTop" labelFor="inputStartDate" />
+		        <DatePicker id="inputStartDate" class="sapUiTinyMarginBottom"  
+						value="{path:'feeModel>/FEE_START_DATE', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}" 
+		            	editable="false" >
+		        </DatePicker>
+                <Label text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_LABEL_END_DATE}:" class="sapUiSmallMarginTop" labelFor="inputEndDate" />
+		        <DatePicker id="inputEndDate" class="sapUiTinyMarginBottom"  
+						value="{path:'feeModel>/FEE_END_DATE', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"  
+		            	editable="false" >
+		        </DatePicker>
+                <Label text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_LABEL_FEE}:" class="sapUiSmallMarginTop" labelFor="inputFee" />
+                <Input id="inputFee" class="sapUiTinyMarginBottom" 
+						value="{ parts: [{path: 'feeModel>/FEE'}, {path: 'feeModel>/currencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false } }" 
+						placeholder="{i18n>ENTITY_VEHICLE_FEE_DIALOG_HINT_FEE}" editable="false" />
+            </VBox>
+        </content>
+		<beginButton>
+			<Button text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_BTN_DELETE}" press="handleFeeDelete" type="Reject" tooltip="{i18n>ENTITY_VEHICLE_FEE_DIALOG_TOOLTIP_BTN_DELETE}" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>ENTITY_VEHICLE_FEE_DIALOG_BTN_CANCEL}" press="onFeeDeleteDialogCancel" tooltip="{i18n>ENTITY_VEHICLE_FEE_DIALOG_TOOLTIP_BTN_CANCEL}"  />
+		</endButton>   
+    </Dialog>
+</core:FragmentDefinition>

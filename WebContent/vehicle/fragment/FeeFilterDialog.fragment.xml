@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" >
+    <ViewSettingsDialog confirm="handleFeeFilterDialogConfirm">
+        <filterItems>
+            <ViewSettingsCustomItem text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_START_DATE}" key="FEE_START_DATE">
+                <customControl>
+		            <DatePicker class="sapUiTinyMarginBottom"  
+				    		value="{path:'newFeeModel>/FEE_START_DATE', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}" 
+                            change="onFilterFeeStart">
+		            </DatePicker>               
+                </customControl>
+            </ViewSettingsCustomItem>
+            <ViewSettingsCustomItem text="{i18n>ENTITY_VEHICLE_FEE_COLUMN_END_DATE}" key="FEE_END_DATE" >
+                <customControl>
+                    <DatePicker class="sapUiTinyMarginBottom"
+                            value="{path:'newFeeModel>/FEE_END_DATE', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}" 
+                            change="onFilterFeeEnd">
+                    </DatePicker>
+                </customControl>
+            </ViewSettingsCustomItem>
+        </filterItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>

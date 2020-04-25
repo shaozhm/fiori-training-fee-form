@@ -1,0 +1,425 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "com.sap.sdrive.ui.masterdata",
+		"type": "application",
+		"i18n": "/sharedlib/i18n/i18n.properties",
+		"title": "{{masterdataAppTitle}}",
+		"description": "{{masterdataAppDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"DrivingSafety": {
+				"uri": "/xsodata/MasterDataManagement.xsodata",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"fullWidth": true,
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "com.sap.sdrive.ui.masterdata.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.unified":{}
+			}
+		},
+		"contentDensities": {
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sharedlib.i18n.i18n"
+				}
+			},
+			"DrivingSafety": {
+				"dataSource": "DrivingSafety",
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline",
+					"refreshAfterChange": false
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewPath": "com.sap.sdrive.ui.masterdata",
+				"controlId": "rootControl",
+				"viewType": "XML",
+				"async": true
+			},
+			"routes": [
+				{
+					"name": "categoryMaster",
+					"pattern": "",
+					"target": ["categoryMaster"]
+				},
+				{
+					"name": "categoryDetail",
+					"pattern": "category",
+					"target": ["categoryMaster", "categoryDetail"]
+				},
+				{
+					"name": "orgMaster",
+					"pattern": "organization",
+					"target": ["orgMaster"]
+				},
+				{
+					"name": "orgDetail",
+					"pattern": "organization/:orgId:",
+					"target": ["orgMaster", "orgDetail"]
+				},
+				{
+					"name": "userMaster",
+					"pattern": "user",
+					"target": ["userMaster"]
+				},
+				{
+					"name": "userDetail",
+					"pattern": "user/:userId:",
+					"target": ["userMaster", "userDetail"]
+				},
+				{
+					"name": "ownerMaster",
+					"pattern": "owner",
+					"target": ["ownerMaster"]
+				},
+				{
+					"name": "ownerDetail",
+					"pattern": "owner/:ownerId:",
+					"target": ["ownerMaster", "ownerDetail"]
+				},
+				{
+					"name": "refVehicleDetail",
+					"pattern": "refVehicle/:vehicleId:",
+					"target": ["vehicleDetail"]
+				},
+				{
+					"name": "refDriverDetail",
+					"pattern": "refDriver/:driverId:",
+					"target": ["driverDetail"]
+				},
+				{
+					"name": "refCompanyDetail",
+					"pattern": "refCompany/:orgId:",
+					"target": ["orgDetail"]
+				},
+				{
+					"name": "refOwnerDetail",
+					"pattern": "refOwner/:ownerId:",
+					"target": ["ownerDetail"]
+				},
+				{
+					"name": "refDeviceDetail",
+					"pattern": "refDevice/:deviceId:",
+					"target": [ "deviceDetail"]
+				},
+				{
+					"name": "refAlertThresholdDetail",
+					"pattern": "refAlertThreshold/:UID:",
+					"target": [ "alertThresholdDetail"]
+				},
+
+				{
+					"name": "alertTypeMaster",
+					"pattern": "alertType",
+					"target": ["alertTypeMaster"]
+				},
+				{
+					"name": "alertTypeDetail",
+					"pattern": "alertType/:alertTypeId:",
+					"target": ["alertTypeMaster", "alertTypeDetail"]
+				},
+				{
+					"name": "alertFactorMaster",
+					"pattern": "alertFactor",
+					"target": ["alertFactorMaster"]
+				},
+				{
+					"name": "alertFactorDetail",
+					"pattern": "alertFactor/:REF_ALERT_TYPE_UID:/:FEATURE:/:VALUE:/:MAX_VALUE:/:MIN_VALUE:",
+					"target": ["alertFactorMaster", "alertFactorDetail"]
+				},
+				{
+					"name": "systemParameterMaster",
+					"pattern": "systemParameter",
+					"target": ["systemParameterMaster"]
+				},
+				{
+					"name": "systemParameterDetail",
+					"pattern": "systemParameter/:systemParameterId:",
+					"target": ["systemParameterMaster", "systemParameterDetail"]
+				},
+				{
+					"name": "simMaster",
+					"pattern": "sim",
+					"target": ["simMaster"]
+				},
+				{
+					"name": "simDetail",
+					"pattern": "sim/:simId:",
+					"target": ["simMaster", "simDetail"]
+				},
+				{
+					"name": "driverMaster",
+					"pattern": "driver",
+					"target": ["driverMaster"]
+				},
+				{
+					"name": "driverDetail",
+					"pattern": "driver/:driverId:",
+					"target": ["driverMaster", "driverDetail"]
+				},
+				{
+					"name": "deviceMaster",
+					"pattern": "device",
+					"target": ["deviceMaster"]
+				},
+				{
+					"name": "deviceDetail",
+					"pattern": "device/:deviceId:",
+					"target": ["deviceMaster", "deviceDetail"]
+				},
+				{
+					"name": "installDeviceMaster",
+					"pattern": "installDevice",
+					"target": ["installDeviceMaster"]
+				},
+				{
+					"name": "createInstallDevice",
+					"pattern": "createInstallDevice",
+					"target": ["installDeviceMaster", "createInstallDevice"]
+				},
+				{
+					"name": "installDeviceDetail",
+					"pattern": "installDevice/:deviceId:",
+					"target": ["installDeviceMaster", "deviceDetail"]
+				},
+				{
+					"name": "vehicleMaster",
+					"pattern": "vehicle",
+					"target": ["vehicleMaster"]
+				},
+				{
+					"name": "vehicleDetail",
+					"pattern": "vehicle/:vehicleId:",
+					"target": ["vehicleMaster", "vehicleDetail"]
+				},
+				{
+					"name": "efenceMaster",
+					"pattern": "efence",
+					"target": ["efenceMaster"]
+				},
+				{
+					"name": "efenceDetail",
+					"pattern": "efence/:efenceId:",
+					"target": ["efenceMaster", "efenceDetail"]
+				},
+				{
+					"name": "batchMaster",
+					"pattern": "batch",
+					"target": ["batchMaster"]
+				},
+				{
+					"name": "batchDetail",
+					"pattern": "batchDetail/:category:",
+					"target": ["batchMaster", "batchDetail"]
+				}
+			],
+			"targets": {
+
+				"categoryMaster": {
+					"viewName": "category/CategoryMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 0
+				},
+				"categoryDetail": {
+					"viewName": "category/CategoryDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 1
+				},
+
+				"orgMaster": {
+					"viewName": "organization/OrgMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"orgDetail": {
+					"viewName": "organization/OrgDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"userMaster": {
+					"viewName": "user/UserMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"userDetail": {
+					"viewName": "user/UserDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"ownerMaster": {
+					"viewName": "owner/OwnerMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"ownerDetail": {
+					"viewName": "owner/OwnerDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"driverMaster": {
+					"viewName": "driver/DriverMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"driverDetail": {
+					"viewName": "driver/DriverDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"alertTypeMaster": {
+					"viewName": "alerttype/AlertTypeMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"alertThresholdDetail": {
+					"viewName": "alertthreshold/AlertThresholdDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"alertTypeDetail": {
+					"viewName": "alerttype/AlertTypeDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"alertFactorMaster": {
+					"viewName": "alertfactor/AlertFactorMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"alertFactorDetail": {
+					"viewName": "alertfactor/AlertFactorDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+				"systemParameterMaster": {
+					"viewName": "systemparameter/SystemParameterMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"systemParameterDetail": {
+					"viewName": "systemparameter/SystemParameterDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"deviceMaster": {
+					"viewName": "device/DeviceMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"deviceDetail": {
+					"viewName": "device/DeviceDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"installDeviceMaster": {
+					"viewName": "installDevice/InstallDeviceMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"createInstallDevice": {
+					"viewName": "installDevice/CreateInstallDevice",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+				"installDeviceDetail": {
+					"viewName": "installDevice/InstallDeviceDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"vehicleMaster": {
+					"viewName": "vehicle/VehicleMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"vehicleDetail": {
+					"viewName": "vehicle/VehicleDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+				"simMaster": {
+					"viewName": "sim/SimMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"simDetail": {
+					"viewName": "sim/SimDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"efenceMaster": {
+					"viewName": "efence/EFenceMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"efenceDetail": {
+					"viewName": "efence/EFenceDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				},
+
+				"batchMaster": {
+					"viewName": "batch/BatchMaster",
+					"controlAggregation": "masterPages",
+					"viewLevel": 2
+				},
+				"batchDetail": {
+					"viewName": "batch/BatchDetail",
+					"controlAggregation": "detailPages",
+					"viewLevel": 3
+				}
+
+			}
+		}
+	}
+}

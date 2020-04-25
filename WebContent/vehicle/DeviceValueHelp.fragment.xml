@@ -1,0 +1,34 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+	<SelectDialog
+			id="DeviceValueHelp"
+			title="{i18n>ENTITY_DEVICE}"
+			search="handleRefDeviceSearch"
+			confirm="handleRefDeviceValueHelpClose"
+			cancel="handleRefDeviceValueHelpClose"
+			showClearButton="true"
+			items="{
+				path:'DrivingSafety>/AvailableDevice',
+				filters : [
+							{
+								 path:'DELETE_FLAG',
+								 operator:'EQ',
+								 value1:'0'
+							}
+			            ]
+			}"
+		>
+		<items>
+			<StandardListItem selected="false"
+					title="{DrivingSafety>DEVICE_ID}"
+					description="{DrivingSafety>MAKER}{DrivingSafety>MODEL}"
+					iconDensityAware="false"
+					iconInset="false"
+					type="Active"
+					press="han"
+			/>
+		</items>
+
+	</SelectDialog>
+</core:FragmentDefinition>
